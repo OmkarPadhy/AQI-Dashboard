@@ -1,0 +1,260 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================= */
+/* Design Tokens (CSS Variables) */
+/* ============================= */
+:root {
+  /* Brand */
+  --brand-50: #FFF7ED;
+  --brand-100: #FFE8D6;
+  --brand-400: #FF7A59;
+  --brand-600: #FF4A25;
+
+  /* Status */
+  --teal-400: #34D399;
+  --amber-400: #FBBF24;
+  --rose-500: #FB7185;
+
+  /* Background */
+  --slate-900: #0F172A;
+  --slate-800: #1E293B;
+  --glass: rgba(255, 255, 255, 0.06);
+  --glass-light: rgba(255, 255, 255, 0.1);
+
+  /* Motion */
+  --animation-duration: 0.3s;
+  --animation-timing: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ================================= */
+/* Reduced Motion Accessibility      */
+/* ================================= */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --animation-duration: 0.01ms;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+.reduce-motion *,
+.reduce-motion *::before,
+.reduce-motion *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+}
+
+/* ============================= */
+/* Base Layer                    */
+/* ============================= */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-feature-settings: 'cv11', 'ss01';
+    font-variation-settings: 'opsz' 32;
+    background: var(--slate-900);
+    color: white;
+    overflow-x: hidden;
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: rgba(15, 23, 42, 0.8);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: rgba(255, 122, 89, 0.6);
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 122, 89, 0.8);
+  }
+}
+
+/* ============================= */
+/* Component Layer               */
+/* ============================= */
+@layer components {
+  /* Glass Cards */
+  .glass-card {
+    @apply bg-white/5 backdrop-blur-md border border-white/10 rounded-xl;
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.08) 0%,
+      rgba(255, 255, 255, 0.02) 100%
+    );
+  }
+
+  .glass-card-light {
+    @apply bg-white/10 backdrop-blur-md border border-white/20 rounded-xl;
+  }
+
+  /* Primary Button */
+  .btn-primary {
+    @apply bg-gradient-to-r from-brand-400 to-brand-600
+           text-white font-medium px-6 py-3 rounded-lg
+           transition-all duration-300 shadow-lg
+           transform hover:scale-105 active:scale-95;
+  }
+
+  /* Secondary Button */
+  .btn-secondary {
+    @apply glass-card hover:bg-white/10 text-white font-medium px-6 py-3 rounded-lg
+           transition-all duration-300 border border-brand-400/40 hover:border-brand-400
+           transform hover:scale-105 active:scale-95;
+  }
+
+  /* Status Badges */
+  .badge-success {
+    @apply bg-teal-400/20 text-teal-400 border border-teal-400/30
+           px-3 py-1 rounded-full text-sm font-medium;
+  }
+
+  .badge-warning {
+    @apply bg-amber-400/20 text-amber-400 border border-amber-400/30
+           px-3 py-1 rounded-full text-sm font-medium;
+  }
+
+  .badge-critical {
+    @apply bg-rose-500/20 text-rose-500 border border-rose-500/30
+           px-3 py-1 rounded-full text-sm font-medium;
+  }
+
+  /* Inputs */
+  .input-primary {
+    @apply glass-card border-white/20 focus:border-brand-400
+           focus:ring-2 focus:ring-brand-400/50
+           text-white placeholder-white/60
+           transition-all duration-300;
+  }
+
+  /* Focus Ring */
+  .focus-ring {
+    @apply focus:outline-none focus:ring-2 focus:ring-brand-400
+           focus:ring-offset-2 focus:ring-offset-slate-900
+           rounded-lg;
+  }
+}
+
+/* ============================= */
+/* Utilities Layer               */
+/* ============================= */
+@layer utilities {
+  .animate-enter {
+    animation: fade-in 0.5s ease-out;
+  }
+
+  .animate-slide-up {
+    animation: slide-up 0.4s ease-out;
+  }
+
+  .animate-slide-right {
+    animation: slide-right 0.4s ease-out;
+  }
+
+  .animate-scale-in {
+    animation: scale-in 0.3s ease-out;
+  }
+
+  .gpu-accelerated {
+    transform: translateZ(0);
+    will-change: transform;
+  }
+
+  .gradient-text {
+    background: linear-gradient(135deg, #FF7A59 0%, #FF4A25 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .pulse-live {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+}
+
+/* ============================= */
+/* Animations                    */
+/* ============================= */
+@keyframes heartbeat {
+  0% { transform: scale(1); }
+  14% { transform: scale(1.1); }
+  28% { transform: scale(1); }
+  42% { transform: scale(1.1); }
+  70% { transform: scale(1); }
+}
+
+/* ============================= */
+/* Light Theme                   */
+/* ============================= */
+.light {
+  --slate-900: #f8fafc;
+  --slate-800: #f1f5f9;
+  --glass: rgba(0, 0, 0, 0.06);
+  --glass-light: rgba(0, 0, 0, 0.1);
+}
+
+.light body {
+  background: var(--slate-900);
+  color: #1e293b;
+}
+
+.light .glass-card {
+  @apply bg-black/5 border-black/10;
+  background: linear-gradient(
+    135deg,
+    rgba(0, 0, 0, 0.08) 0%,
+    rgba(0, 0, 0, 0.02) 100%
+  );
+}
+
+/* ============================= */
+/* Skeleton Loader               */
+/* ============================= */
+.skeleton {
+  @apply bg-gradient-to-r from-white/10 via-white/20 to-white/10
+         animate-pulse rounded;
+  background-size: 200% 100%;
+}
+
+/* ============================= */
+/* Charts                        */
+/* ============================= */
+.chart-container {
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+
+.chart-container canvas {
+  border-radius: 12px;
+}
+.bg-air {
+  background:
+    linear-gradient(to bottom right, rgba(2, 6, 23, 0.85), rgba(2, 6, 23, 0.95)),
+    url("https://images.unsplash.com/photo-1502082553048-f009c37129b9?auto=format&fit=crop&w=1600&q=80");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}

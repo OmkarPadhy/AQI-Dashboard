@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Primary Meta -->
+    <title>Exposure-Aware Air Quality Monitoring Dashboard</title>
+    <meta
+      name="description"
+      content="IoT-based air quality and exposure monitoring dashboard with real-time analytics, predictive risk alerts, and environmental insights."
+    />
+    <meta name="theme-color" content="#38BDF8" />
+
+    <!-- Open Graph / SEO -->
+    <meta property="og:title" content="Exposure-Aware Air Quality Monitoring Dashboard" />
+    <meta
+      property="og:description"
+      content="Real-time air quality exposure monitoring with predictive health-risk insights and smart alerts."
+    />
+    <meta property="og:type" content="website" />
+
+    <!-- Preload fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- Security Headers -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="
+        default-src 'self';
+        script-src 'self' 'unsafe-inline' 'unsafe-eval';
+        style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+        font-src 'self' https://fonts.gstatic.com;
+        img-src 'self' data: https:;
+        connect-src 'self' https://*.supabase.co wss://*.supabase.co;
+      "
+    />
+
+    <!-- Critical CSS -->
+    <style>
+      body {
+        margin: 0;
+        font-family: 'Inter', system-ui, sans-serif;
+        background: #0f172a;
+        color: white;
+        overflow-x: hidden;
+      }
+
+      /* Loading Screen */
+      .loading-screen {
+        position: fixed;
+        inset: 0;
+        background: linear-gradient(135deg, #0b1220 0%, #111827 100%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+        transition: opacity 0.5s ease-out;
+      }
+
+      .loading-logo {
+        width: 80px;
+        height: 80px;
+        background: linear-gradient(135deg, #38bdf8 0%, #0ea5e9 100%);
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 24px;
+        animation: pulse 2s infinite;
+        box-shadow: 0 0 40px rgba(56, 189, 248, 0.35);
+      }
+
+      .loading-text {
+        font-size: 24px;
+        font-weight: 700;
+        margin-bottom: 6px;
+        background: linear-gradient(135deg, #38bdf8 0%, #0ea5e9 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .loading-subtitle {
+        color: rgba(255, 255, 255, 0.65);
+        font-size: 14px;
+        margin-bottom: 28px;
+      }
+
+      .loading-spinner {
+        width: 32px;
+        height: 32px;
+        border: 3px solid rgba(56, 189, 248, 0.3);
+        border-top: 3px solid #38bdf8;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.05);
+        }
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* Hide loading screen once app is ready */
+      .loaded .loading-screen {
+        opacity: 0;
+        pointer-events: none;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loading-screen">
+      <div class="loading-logo">
+        <!-- Air / Environment Icon -->
+        <svg
+          width="40"
+          height="40"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M3 12h13a3 3 0 1 0-3-3"
+            stroke="white"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M4 16h10a2 2 0 1 1-2 2"
+            stroke="white"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </div>
+
+      <div class="loading-text">Air Quality Monitor</div>
+      <div class="loading-subtitle">
+        Initializing exposure intelligence…
+      </div>
+      <div class="loading-spinner"></div>
+    </div>
+
+    <!-- React Root -->
+    <div id="root"></div>
+
+    <!-- Loading Handler -->
+    <script>
+      window.addEventListener("load", () => {
+        setTimeout(() => {
+          document.body.classList.add("loaded");
+          setTimeout(() => {
+            const loader = document.getElementById("loading-screen");
+            if (loader) loader.remove();
+          }, 500);
+        }, 800);
+      });
+
+      if ("performance" in window) {
+        window.addEventListener("load", () => {
+          const loadTime =
+            performance.timing.loadEventEnd -
+            performance.timing.navigationStart;
+          console.log("🌍 AQI Dashboard loaded in", loadTime + "ms");
+        });
+      }
+    </script>
+
+    <!-- React Entry -->
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
