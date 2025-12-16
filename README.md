@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Human Patient Monitoring System 🏥
 
 A production-ready React dashboard for real-time patient monitoring with vibrant UI, rich animations, and comprehensive healthcare data visualization.
@@ -391,3 +392,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 **Built with ❤️ for healthcare professionals worldwide**
 
 *Version 1.0.0 - Production Ready*
+=======
+# AQI-Dashboard
+>>>>>>> 8e4834e9983f6717e84d4b07fc69bf11dfda28cf
