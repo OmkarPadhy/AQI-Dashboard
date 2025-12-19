@@ -1,53 +1,56 @@
 import { useEffect, useState } from "react";
 import { AirQualityReading } from "../types/database";
 
-function clamp(v: number, min: number, max: number) {
-  return Math.min(max, Math.max(min, v));
-}
+const MAX_POINTS = 120;
 
-function drift(prev: number, delta: number, min: number, max: number) {
-  return clamp(prev + (Math.random() - 0.5) * delta, min, max);
-}
-
-export function useLiveSensorSimulator() {
-  const [data, setData] = useState<AirQualityReading[]>(() => {
-    const now = Date.now();
-    return Array.from({ length: 60 }).map((_, i) => ({
-      id: `init-${i}`,
-      timestamp: new Date(now - (60 - i) * 1000).toISOString(),
-      pm25: 35,
-      pm10: 70,
-      temperature: 26,
-      humidity: 55,
-      gas: 180,
-      light: 420,
-      device_id: "demo",
-      confidence: 0.95,
-    }));
-  });
+export function useLiveSensorSimulator(): AirQualityReading[] {
+  const [data, setData] = useState<AirQualityReading[]>([]);
 
   useEffect(() => {
-    const timer = setInterval(() => {
+    const interval = setInterval(() => {
       setData((prev) => {
-        const last = prev[prev.length - 1];
+        const now = new Date().toISOString();
+        const t = prev.length;
 
-        const next: AirQualityReading = {
-          ...last,
+        // ---- NORMAL BASELINE ----
+        let pm25 = 25 + Math.random() * 5;
+        let pm10 = 55 + Math.random() * 8;
+        let temperature = 25 + Math.random();
+        let humidity = 50 + Math.random() * 4;
+        let gas = 150 + Math.random() * 20;
+        let light = 300 + Math.random() * 100;
+
+        // ---- INJECT ABNORMAL EVENTS ----
+        // Every ~30–45 seconds
+        if (t % 35 === 0 && t !== 0) {
+          pm25 = 85 + Math.random() * 20;      // Critical PM2.5
+          gas = 480 + Math.random() * 80;      // Gas spike
+        }
+
+        if (t % 50 === 0 && t !== 0) {
+          temperature = 38 + Math.random() * 3; // High temp
+          humidity = 75 + Math.random() * 8;    // High humidity
+        }
+
+        const newPoint: AirQualityReading = {
           id: crypto.randomUUID(),
-          timestamp: new Date().toISOString(),
-          pm25: drift(last.pm25, 3, 10, 120),
-          pm10: drift(last.pm10, 4, 20, 200),
-          temperature: drift(last.temperature, 0.3, 18, 40),
-          humidity: drift(last.humidity, 1.2, 30, 90),
-          gas: drift(last.gas, 8, 100, 600),
-          light: drift(last.light, 25, 50, 900),
+          timestamp: now,
+          pm25,
+          pm10,
+          temperature,
+          humidity,
+          gas,
+          light,
         };
 
-        return [...prev.slice(1), next];
+        const updated = [...prev, newPoint];
+        return updated.length > MAX_POINTS
+          ? updated.slice(updated.length - MAX_POINTS)
+          : updated;
       });
-    }, 1000);
+    }, 1000); // 1 second update
 
-    return () => clearInterval(timer);
+    return () => clearInterval(interval);
   }, []);
 
   return data;

@@ -258,3 +258,125 @@
   background-position: center;
   background-attachment: fixed;
 }
+/* ========================= */
+/* DASHBOARD BACKGROUNDS     */
+/* ========================= */
+
+.dashboard-bg {
+  background:
+    radial-gradient(circle at top left, rgba(56,189,248,0.25), transparent 40%),
+    radial-gradient(circle at bottom right, rgba(34,197,94,0.25), transparent 40%),
+    linear-gradient(135deg, #020617, #020617);
+}
+
+/* LIGHT MODE */
+.light .dashboard-bg {
+  background:
+    radial-gradient(circle at top left, rgba(56,189,248,0.35), transparent 40%),
+    radial-gradient(circle at bottom right, rgba(34,197,94,0.35), transparent 40%),
+    linear-gradient(135deg, #f8fafc, #eef2ff);
+  color: #0f172a;
+}
+
+/* ========================= */
+/* GLASS / AMBIENT CARDS     */
+/* ========================= */
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 14px;
+}
+
+.light .glass-card {
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+/* Ambient glow */
+.ambient-card {
+  box-shadow:
+    0 0 25px rgba(56,189,248,0.15),
+    inset 0 0 10px rgba(255,255,255,0.05);
+}
+
+.light .ambient-card {
+  box-shadow:
+    0 0 25px rgba(56,189,248,0.25);
+}
+
+/* Gradient text */
+.gradient-text {
+  background: linear-gradient(135deg, #38bdf8, #22c55e);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+/* ========================= */
+/* ENVIRONMENT BACKGROUND    */
+/* ========================= */
+
+.dashboard-bg {
+  background-image:
+    linear-gradient(rgba(2,6,23,0.75), rgba(2,6,23,0.85)),
+    url("https://images.unsplash.com/photo-1501785888041-af3ef285b470");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+.light .dashboard-bg {
+  background-image:
+    linear-gradient(rgba(255,255,255,0.75), rgba(240,249,255,0.85)),
+    url("https://images.unsplash.com/photo-1501785888041-af3ef285b470");
+}
+.light {
+  color: #0f172a;
+}
+
+.light .stat-label {
+  color: #475569;
+}
+
+.light .stat-value {
+  color: #0f172a;
+}
+.chart-container {
+  background: linear-gradient(
+    135deg,
+    rgba(255,255,255,0.95),
+    rgba(240,249,255,0.95)
+  );
+  border-radius: 14px;
+  padding: 8px;
+}
+
+.light .chart-container {
+  background: linear-gradient(
+    135deg,
+    #ffffff,
+    #ecfeff
+  );
+}
+.glass-card {
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(16px);
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,0.2);
+}
+
+.light .glass-card {
+  background: rgba(255,255,255,0.9);
+  border: 1px solid rgba(0,0,0,0.08);
+}
+
+.ambient-card {
+  box-shadow:
+    0 8px 30px rgba(14,165,233,0.25),
+    inset 0 0 10px rgba(255,255,255,0.4);
+}
+.gradient-text {
+  background: linear-gradient(135deg, #0ea5e9, #22c55e);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}

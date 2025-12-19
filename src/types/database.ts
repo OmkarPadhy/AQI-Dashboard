@@ -1,13 +1,17 @@
 export interface AirQualityReading {
-  id: string;
+  id?: number;
   timestamp: string;
+
   pm25: number;
   pm10: number;
+
   temperature: number;
   humidity: number;
-  device_id: string;
-  confidence: number;
+
+  gas: number;     
+  light: number;   
 }
+
 
 export type RiskLevel = "Safe" | "Moderate" | "Unsafe";
 
